@@ -124,6 +124,7 @@ body {
             display: none;
             border: 1px solid grey;
             border-radius: 5px;
+            user-select: none;
 
             &:hover {
                 background-color: black;
