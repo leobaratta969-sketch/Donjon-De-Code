@@ -1,0 +1,159 @@
+body {
+    & h1 {
+        font-size: 5rem;
+        text-align: center;
+    }
+    background-image: url(img/fonds/background4.png), url(img/fonds/background3.png), url(img/fonds/background2.png),url(img/fonds/background1.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    color: black;
+    #bloc-central {
+        display:flex;
+        justify-content: space-between;
+        & #rencontre {
+            & span {
+                font-size: 25px;
+                padding: 5px;
+            }
+            
+            flex: 1 1 0;
+            width: 0;
+            max-height: 500px;
+            & img {
+                max-height: 100%;
+                width: 80%;
+            }
+        }
+        & #journal {
+            flex: 1 1 0;
+            width: 0;
+            background-color: #ddddddaa;
+            color: grey;
+            border: 2px solid black;
+            padding: 1rem;
+            font-family: monospace;
+            font-size: 25px;
+            max-height: 500px;
+            overflow: auto;
+
+            & p {
+                &.basic {
+                    color: black;
+                }
+
+                &.pasimportant {
+                    color: grey;
+                }
+
+                &.rouge {
+                    color:red;
+                }
+
+                &.vert {
+                    color:green;
+                }
+
+                &.mort {
+                    color: red;
+                    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+                    text-transform: capitalize;
+                }
+
+            }
+        }
+    }
+
+    & #personnages {
+        display: flex;
+        font-size: 25px;
+        margin-top: 0.5rem;
+        & img {
+            max-height: 90px;
+        }
+        &.hidden {
+            display: none;
+        }
+
+
+        & div {
+            text-align:center;
+            flex: 1 1 0;
+            width: 0;
+            border: 1px solid grey;
+            padding: 1rem;
+
+            & img {
+                display: block;
+                margin: auto;
+            }
+
+            &:hover {
+                background-color: black;
+                color: white;
+                cursor: pointer;
+            }
+        }
+    }
+
+    & #progression {
+        padding: 5px;
+        margin-bottom: 0.5rem;
+        font-size: 25px;
+        border: 2px solid black;
+        & #nbdepas {
+            background-color: #78cb9bdd;
+            min-height: 20px;
+        }
+    }
+    
+
+    & #actions {
+        display: none;
+
+        &.shown {
+            display: flex;
+        }
+
+        & .btn {
+            font-size: 25px;
+            padding: 5px;
+            margin-right: 5px;
+            margin-top: 0.5rem;
+            cursor: pointer;
+            display: none;
+            border: 1px solid grey;
+            border-radius: 5px;
+
+            &:hover {
+                background-color: black;
+                color: white;
+            }
+
+            &.shown {
+                display: flex;
+            }
+        }
+    }
+
+    & #stats {
+        background-color: #ffffff77;
+        align-items: center;
+        justify-content: space-around;
+        display: none;
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
+        padding: 1rem;
+        border: 2px solid black;
+        font-size: 25px;
+
+        &.shown {
+            display: flex;
+        }
+
+        & img {
+            max-height: 60px;
+        }
+
+    }
+}
