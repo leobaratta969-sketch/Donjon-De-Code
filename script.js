@@ -7,7 +7,7 @@ var jeu = {
         probasMonstre: 10,
         probaRiposte: 15,
         incrementPas: 10,
-        boss: 100
+        boss: 999
     },
     etat: {
         pas: 0,
@@ -128,7 +128,7 @@ var jeu = {
                     }
 
                     this.updatePv()
-                    this.ecrire(`vous regagnez des pv`)
+                    this.ecrire(`vous regagnez des pv`, "vert")
                 }
             }
                 
@@ -203,7 +203,7 @@ var jeu = {
                 this.ecrire("Vous tombez sur un coffre !", "vert")
                 let gainForce = this.getRandomInt(0, 5)
                 this.personnage.force += gainForce
-                this.ecrire(`Vous gagnez ${gainForce} de force`)
+                this.ecrire(`Vous gagnez ${gainForce} de force`, "vert")
                 let force = document.querySelector("#stat-force")
                 force.innerHTML = this.personnage.force
                 let img = document.querySelector("#rencontre img")
@@ -221,7 +221,7 @@ var jeu = {
         let name
         if(isBoss == true){
             image = "img/monstres/boss.png"
-            pv = 1000
+            pv = 25000
             force = 100
             name = "boss"
         } else {
