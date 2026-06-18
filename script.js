@@ -61,6 +61,20 @@ var jeu = {
             'image': 'molly.png'
         }
     ],
+        objets: [
+        {
+            'nom': "amulette",
+            'image': 'amulette.png'
+        },
+        {
+            'nom': "potion",
+            'image': 'potion.png'
+        },
+        {
+            'nom': "bandage",
+            'image': 'bandage.png'
+        }
+    ],
 
     personnage: null,
 
