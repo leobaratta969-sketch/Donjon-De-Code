@@ -58,20 +58,20 @@ var jeu = {
             'pvCourant': 10,
             'force': 1,
             'intelligence': 1,
-            'image': 'molly.png'
+            'image': 'Weaky.png'
         }
     ],
         objets: [
         {
-            'nom': "amulette",
-            'image': 'amulette.png'
+            'nom': "pillule de force bleu",
+            'image': 'pill1.png'
         },
         {
-            'nom': "potion",
-            'image': 'potion.png'
+            'nom': "pillule de force",
+            'image': 'pill2.png'
         },
         {
-            'nom': "bandage",
+            'nom': "bandage de force",
             'image': 'bandage.png'
         }
     ],
