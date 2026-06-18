@@ -7,12 +7,13 @@ var jeu = {
         probasMonstre: 10,
         probaRiposte: 15,
         incrementPas: 10,
-        boss: 999
+        boss: 100
     },
     etat: {
         pas: 0,
         combat: false,
-        objectif: 100
+        objectif: 100,
+        victoire: false
     },
     monstres: [
         "img/monstres/monstre2.png",
@@ -74,6 +75,11 @@ var jeu = {
         fuir.addEventListener("click", (event) => {
             jeu.fuir()
         });
+
+        let recommencer = document.querySelector("#recommencer")
+        recommencer.addEventListener("click", (event) => {
+            location.reload()
+        });
     },
 
     effacerjournal: function () {
@@ -101,21 +107,33 @@ var jeu = {
 
         if (this.monstre.pv < 1) {
             this.etat.combat = false
-            this.ecrire(`vous avez vaincu le monstre`, 'vert')
-            this.gestionBoutons()
+           
+            this.ecrire(`vous avez vaincu le ${this.monstre.name}`, 'vert')
             this.effacerMonstre()
+            if(this.monstre.name == "boss") {
+                this.etat.victoire = true
+                document.body.style.backgroundImage = "url(img/autres/NewBackground.png)"
+                document.querySelector("h1").style.color = "white"
+                let paragraphes = document.querySelectorAll("#journal p")
+                paragraphes.forEach(paragraphe => {
+                    paragraphe.style.color = "black"
+                });
+            } else {
+                if (this.personnage.pvCourant != this.personnage.pvMax) {
+                    let gainPV = this.personnage.pvCourant / 2
+                    if (this.personnage.pvCourant + gainPV > this.personnage.pvMax) {
+                        this.personnage.pvCourant = this.personnage.pvMax
+                    } else {
+                        this.personnage.pvCourant += gainPV
+                    }
 
-            if (this.personnage.pvCourant != this.personnage.pvMax) {
-                let gainPV = this.personnage.pvCourant / 2
-                if (this.personnage.pvCourant + gainPV > this.personnage.pvMax) {
-                    this.personnage.pvCourant = this.personnage.pvMax
-                } else {
-                    this.personnage.pvCourant += gainPV
+                    this.updatePv()
+                    this.ecrire(`vous regagnez des pv`)
                 }
-
-                this.updatePv()
-                this.ecrire(`vous regagnez des pv`)
             }
+                
+            this.gestionBoutons()
+
         } else {
             let result = this.getRandomInt(0, 100)
             if (result < this.parametres.probaRiposte) {
@@ -200,12 +218,14 @@ var jeu = {
         let pv
         let image
         let force 
+        let name
         if(isBoss == true){
             image = "img/monstres/boss.png"
-            pv = 25000
-            force = 250
-
+            pv = 1000
+            force = 100
+            name = "boss"
         } else {
+            name = "monstre standard"
             image = this.monstres[Math.floor(Math.random() * this.monstres.length)]
             pv = this.etat.pas * this.getRandomInt(5, 10)
             force = pv / 10
@@ -214,7 +234,8 @@ var jeu = {
         let monstre = {
             'pv': pv,
             'force': force,
-            'image': image
+            'image': image,
+            'name': name
         }
         
         this.monstre = monstre
@@ -223,8 +244,6 @@ var jeu = {
         img.src = this.monstre.image
         text.innerHTML = `❤️ ${this.monstre.pv}`
         this.ecrire(`il a ${pv}hp et ${force} de force`)
-
-
     },
     cacherPersonnage: function () {
         let blocPersos = document.querySelector("#personnages")
@@ -248,25 +267,37 @@ var jeu = {
     },
 
     gestionBoutons: function (isBoss = false) {
-        if (!this.etat.combat) {
-            let continuer = document.querySelector("#continuer")
-            continuer.classList.add("shown")
-            let combattre = document.querySelector("#combattre")
-            combattre.classList.remove("shown")
-            let fuir = document.querySelector("#fuir")
-            fuir.classList.remove("shown")
+
+        if(!this.etat.victoire) {
+            if (!this.etat.combat) {
+                let continuer = document.querySelector("#continuer")
+                continuer.classList.add("shown")
+                let combattre = document.querySelector("#combattre")
+                combattre.classList.remove("shown")
+                let fuir = document.querySelector("#fuir")
+                fuir.classList.remove("shown")
+            } else {
+                let continuer = document.querySelector("#continuer")
+                continuer.classList.remove("shown")
+                let combattre = document.querySelector("#combattre")
+                combattre.classList.add("shown")
+                if(isBoss) {
+                    let fuir = document.querySelector("#fuir")
+                    fuir.classList.remove("shown")
+                } else {
+                    let fuir = document.querySelector("#fuir")
+                    fuir.classList.add("shown")
+                }
+            }
         } else {
             let continuer = document.querySelector("#continuer")
             continuer.classList.remove("shown")
             let combattre = document.querySelector("#combattre")
-            combattre.classList.add("shown")
-            if(isBoss) {
-                let fuir = document.querySelector("#fuir")
-                fuir.classList.remove("shown")
-            } else {
-                let fuir = document.querySelector("#fuir")
-                fuir.classList.add("shown")
-            }
+            combattre.classList.remove("shown")
+            let fuir = document.querySelector("#fuir")
+            fuir.classList.remove("shown")
+            let recommencer = document.querySelector("#recommencer")
+            recommencer.classList.add("shown")
         }
     },
 
