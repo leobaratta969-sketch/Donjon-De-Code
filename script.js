@@ -197,14 +197,26 @@ var jeu = {
         
     },
     genereMonstre:function(isBoss){
-        let pv = this.etat.pas * this.getRandomInt(5, 10)
-        let force = pv / 10
-        let image = this.monstres[Math.floor(Math.random() * this.monstres.length)]
+        let pv
+        let image
+        let force 
+        if(isBoss == true){
+            image = "img/monstres/boss.png"
+            pv = 25000
+            force = 250
+
+        } else {
+            image = this.monstres[Math.floor(Math.random() * this.monstres.length)]
+            pv = this.etat.pas * this.getRandomInt(5, 10)
+            force = pv / 10
+        }
+
         let monstre = {
             'pv': pv,
             'force': force,
             'image': image
         }
+        
         this.monstre = monstre
         let img = document.querySelector("#rencontre img")
         let text = document.querySelector("#rencontre span")
