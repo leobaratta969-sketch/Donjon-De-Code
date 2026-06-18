@@ -10,9 +10,9 @@ petit jeu en html / js pour apprendre le code
 ### Personnages/Monstres/Boss/fond:
 Itch.io
 ### In Game Sounds:
-Punch = https://www.youtube.com/watch?v=fSk5oYFsQ3Q  
-Degats infligé sur notre personnage = https://www.youtube.com/watch?v=JcG_ugrzfHE  
-Victoire du boss = https://www.youtube.com/watch?v=rr5CMS2GtCY  
+Punch = youtube.com/watch?v=fSk5oYFsQ3Q  
+Degats infligé sur notre personnage = youtube.com/watch?v=JcG_ugrzfHE  
+Victoire du boss = youtube.com/watch?v=rr5CMS2GtCY  
 
 ## <ins>License</ins>
 MIT, voir fichier `LICENSE`
