@@ -54,11 +54,11 @@ var jeu = {
         },
         {
             'nom': "Weaky",
-            'pvMax': 10,
-            'pvCourant': 10,
-            'force': 1,
-            'intelligence': 1,
-            'image': 'Weaky.png'
+            'pvMax': 9999999,
+            'pvCourant': 9999999,
+            'force': 9999999,
+            'intelligence': 9999999,
+            'image': 'Weakyy.png'
         }
     ],
         objets: [
