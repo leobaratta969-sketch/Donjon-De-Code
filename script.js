@@ -29,7 +29,7 @@ var jeu = {
     monstre: null,
     persos: [
         {
-            'nom': "Maurice",
+            'nom': "Viking",
             'pvMax': 150,
             'pvCourant': 150,
             'force': 5,
@@ -37,7 +37,7 @@ var jeu = {
             'image': 'maurice.png'
         },
         {
-            'nom': "Apple",
+            'nom': "Wizard",
             'pvMax': 75,
             'pvCourant': 75,
             'force': 1,
@@ -50,6 +50,14 @@ var jeu = {
             'pvCourant': 100,
             'force': 3,
             'intelligence': 3,
+            'image': 'molly.png'
+        },
+        {
+            'nom': "Weaky",
+            'pvMax': 10,
+            'pvCourant': 10,
+            'force': 1,
+            'intelligence': 1,
             'image': 'molly.png'
         }
     ],
