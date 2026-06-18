@@ -89,8 +89,8 @@ body {
             }
 
             &:hover {
-                background-color: black;
-                color: white;
+                background-color: #ddddddaa;
+                color: black;
                 cursor: pointer;
             }
         }
@@ -127,8 +127,8 @@ body {
             user-select: none;
 
             &:hover {
-                background-color: black;
-                color: white;
+                background-color: #ddddddaa;
+                color: black;
             }
 
             &.shown {

@@ -6,7 +6,8 @@ var jeu = {
     parametres: {
         probasMonstre: 10,
         probaRiposte: 15,
-        incrementPas: 10
+        incrementPas: 10,
+        boss: 999
     },
     etat: {
         pas: 0,
@@ -162,44 +163,57 @@ var jeu = {
             this.etat.objectif += 100
             this.updatePv()
         }
-
-        let result = this.getRandomInt(0, 100)
-        // ON TOMBE SUR UN MONSTRE
-        if (result < this.parametres.probasMonstre) {
-            this.ecrire("Attention un monstre...")
+        
+        // ON TOMBE SUR LE BOSS
+        if(this.etat.pas > this.parametres.boss){
             this.etat.combat = true
-            this.gestionBoutons()
-            let pv = this.etat.pas * this.getRandomInt(5, 10)
-            let force = pv / 10
-            let image = this.monstres[Math.floor(Math.random() * this.monstres.length)]
-            let monstre = {
-                'pv': pv,
-                'force': force,
-                'image': image
-            }
-            this.monstre = monstre
-            let img = document.querySelector("#rencontre img")
-            let text = document.querySelector("#rencontre span")
-            img.src = this.monstre.image
-            text.innerHTML = `❤️ ${this.monstre.pv}`
-            this.ecrire(`il a ${pv}hp et ${force} de force`)
-
+            this.gestionBoutons(true)
+            this.ecrire("Bravo, bous avez atteint le boss final, le fight commence maintenant")
+            this.genereMonstre(true)
 
         } else {
-            // ON TOMBE SUR UN COFFRE
-            this.ecrire("Vous tombez sur un coffre !", "vert")
-            let gainForce = this.getRandomInt(0, 5)
-            this.personnage.force += gainForce
-            this.ecrire(`Vous gagnez ${gainForce} de force`)
-            let force = document.querySelector("#stat-force")
-            force.innerHTML = this.personnage.force
-            let img = document.querySelector("#rencontre img")
-            img.src = "img/autres/coffre.png"
-            let text = document.querySelector("#rencontre span")
-            text.innerHTML = ""
-        }
-    },
+            let result = this.getRandomInt(0, 100)
+            // ON TOMBE SUR UN MONSTRE
+            if (result < this.parametres.probasMonstre) {
+                this.ecrire("Attention un monstre...")
+                this.etat.combat = true
+                this.gestionBoutons()
+                this.genereMonstre(false)
 
+            } else {
+                // ON TOMBE SUR UN COFFRE
+                this.ecrire("Vous tombez sur un coffre !", "vert")
+                let gainForce = this.getRandomInt(0, 5)
+                this.personnage.force += gainForce
+                this.ecrire(`Vous gagnez ${gainForce} de force`)
+                let force = document.querySelector("#stat-force")
+                force.innerHTML = this.personnage.force
+                let img = document.querySelector("#rencontre img")
+                img.src = "img/autres/coffre.png"
+                let text = document.querySelector("#rencontre span")
+                text.innerHTML = ""
+            } 
+        }
+        
+    },
+    genereMonstre:function(isBoss){
+        let pv = this.etat.pas * this.getRandomInt(5, 10)
+        let force = pv / 10
+        let image = this.monstres[Math.floor(Math.random() * this.monstres.length)]
+        let monstre = {
+            'pv': pv,
+            'force': force,
+            'image': image
+        }
+        this.monstre = monstre
+        let img = document.querySelector("#rencontre img")
+        let text = document.querySelector("#rencontre span")
+        img.src = this.monstre.image
+        text.innerHTML = `❤️ ${this.monstre.pv}`
+        this.ecrire(`il a ${pv}hp et ${force} de force`)
+
+
+    },
     cacherPersonnage: function () {
         let blocPersos = document.querySelector("#personnages")
         blocPersos.classList.add("hidden")
@@ -221,8 +235,8 @@ var jeu = {
         })
     },
 
-    gestionBoutons: function () {
-        if (this.etat.combat == false) {
+    gestionBoutons: function (isBoss = false) {
+        if (!this.etat.combat) {
             let continuer = document.querySelector("#continuer")
             continuer.classList.add("shown")
             let combattre = document.querySelector("#combattre")
@@ -234,8 +248,13 @@ var jeu = {
             continuer.classList.remove("shown")
             let combattre = document.querySelector("#combattre")
             combattre.classList.add("shown")
-            let fuir = document.querySelector("#fuir")
-            fuir.classList.add("shown")
+            if(isBoss) {
+                let fuir = document.querySelector("#fuir")
+                fuir.classList.remove("shown")
+            } else {
+                let fuir = document.querySelector("#fuir")
+                fuir.classList.add("shown")
+            }
         }
     },
 
@@ -290,8 +309,3 @@ var jeu = {
         });
     }
 }
-/*
-Fight avec le boss de fin
-Changer la couleur du fond
-Quand on meurt ou quand on tu le boss de fin, clear tous l'affichage pour montrer seulement toutes les stats du joueur (nbPas, pvMax, monstre combattu)
-*/
