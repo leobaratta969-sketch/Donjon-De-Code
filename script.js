@@ -3,7 +3,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
 });
 
 var jeu = {
-    backgroundMusic: null
         
     parametres: {
         probasMonstre: 10,
@@ -87,10 +86,6 @@ var jeu = {
     },
 
     demarrer: function () {
-        this.backgroundMusic = new Audio(sound/background.mp3);
-        this.backgroundMusic.loop = true;
-        this.backgroundMusic.play();
-        
         this.ecrire("ça démarre", "basic")
         this.ecrire("choisis ton personnage...", "basic")
         this.choixPerso()
