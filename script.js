@@ -3,7 +3,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
 });
 
 var jeu = {
-    // Ajouter l'audio background.mp3 en loop
+    backgroundMusic: null
+        
     parametres: {
         probasMonstre: 10,
         probaRiposte: 15,
@@ -86,6 +87,10 @@ var jeu = {
     },
 
     demarrer: function () {
+        this.backgroundMusic = new Audio(sound/background.mp3);
+        this.backgroundMusic.loop = true;
+        this.backgroundMusic.play();
+        
         this.ecrire("ça démarre", "basic")
         this.ecrire("choisis ton personnage...", "basic")
         this.choixPerso()
