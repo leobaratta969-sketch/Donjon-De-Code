@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 });
 
 var jeu = {
+    // Ajouter l'audio background.mp3 en loop
     parametres: {
         probasMonstre: 10,
         probaRiposte: 15,
