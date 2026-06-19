@@ -53,12 +53,13 @@ var jeu = {
             'image': 'molly.png'
         },
         {
-            'nom': "Weaky",
+            'nom': "EasterEgg",
             'pvMax': 9999999,
             'pvCourant': 9999999,
             'force': 9999999,
             'intelligence': 9999999,
             'image': 'Weakyy.png'
+            // Cachez le personnage sur le menu du debut (ex: si on appuis sur l'emoji de l'épée )
         }
     ],
         objets: [
