@@ -78,6 +78,11 @@ var jeu = {
 
     personnage: null,
 
+    playAudio: function(son) {
+        let audio = new Audio(son)
+        audio.play();
+    },
+
     demarrer: function () {
         this.ecrire("ça démarre", "basic")
         this.ecrire("choisis ton personnage...", "basic")
@@ -91,6 +96,7 @@ var jeu = {
         let combattre = document.querySelector("#combattre")
         combattre.addEventListener("click", (event) => {
             jeu.combattre()
+            jeu.playAudio("sounds/punch.mp3")
         });
 
         let fuir = document.querySelector("#fuir")
@@ -134,6 +140,7 @@ var jeu = {
             this.effacerMonstre()
             if(this.monstre.name == "boss") {
                 this.etat.victoire = true
+                jeu.playAudio("sounds/win.mp3")
                 document.body.style.backgroundImage = "url(img/autres/NewBackground.png)"
                 document.querySelector("h1").style.color = "white"
                 let paragraphes = document.querySelectorAll("#journal p")
@@ -167,6 +174,7 @@ var jeu = {
                 this.personnage.pvCourant -= degat
                 console.log(degat)
                 console.log(this.personnage.pvCourant)
+                jeu.playAudio("sounds/hit.mp3")
 
                 this.updatePv()
 
