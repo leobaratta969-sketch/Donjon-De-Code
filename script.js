@@ -3,6 +3,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
 });
 
 var jeu = {
+    document.addEventListener("DOMContentLoaded", (event) => {
+        jeu.playAudio("sounds/background.mp3")
     parametres: {
         probasMonstre: 10,
         probaRiposte: 15,
@@ -88,7 +90,6 @@ var jeu = {
         this.ecrire("ça démarre", "basic")
         this.ecrire("choisis ton personnage...", "basic")
         this.choixPerso()
-        jeu.playAudio("sounds/background.mp3")
 
         let continuer = document.querySelector("#continuer")
         continuer.addEventListener("click", (event) => {
