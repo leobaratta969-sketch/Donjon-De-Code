@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", (event) => {
     jeu.demarrer()
-    jeu.playAudio("sounds/background.mp3")
 });
 
 var jeu = {
@@ -89,6 +88,7 @@ var jeu = {
         this.ecrire("ça démarre", "basic")
         this.ecrire("choisis ton personnage...", "basic")
         this.choixPerso()
+        jeu.playAudio("sounds/background.mp3")
 
         let continuer = document.querySelector("#continuer")
         continuer.addEventListener("click", (event) => {
