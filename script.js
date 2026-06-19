@@ -1,10 +1,9 @@
 document.addEventListener("DOMContentLoaded", (event) => {
     jeu.demarrer()
+    jeu.playAudio("sounds/background.mp3")
 });
 
 var jeu = {
-    document.addEventListener("DOMContentLoaded", (event) => {
-        jeu.playAudio("sounds/background.mp3")
     parametres: {
         probasMonstre: 10,
         probaRiposte: 15,
