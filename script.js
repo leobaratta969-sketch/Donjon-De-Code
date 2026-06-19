@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", (event) => {
     jeu.demarrer()
-    jeu.playAudio("sounds/background.mp3")
 });
 
 var jeu = {
