@@ -10,27 +10,35 @@
 <body>
 
   <h1>⚔️ Le Donjon de Code</h1>
+  <div id="volume">
+    <span class="btn" id="haut"> 🔊+</span>
+    <span class="btn" id="bas"> 🔈-</span>
+  </div>
+
+  
+  <span class="btn" id="rules"> Règles du jeu </span>
+  
 
   <div id="stats">
-    <div><img id="perso-image"/></div>
+    <div><img id="perso-image" /></div>
     <div>❤️ HP : <strong id="stat-hp">???</strong></div>
     <div>⚔️ Force : <strong id="stat-force">???</strong></div>
     <div>🪄 Intelligence : <strong id="stat-int">???</strong></div>
   </div>
 
   <div id="progression">
-        <div id="nbdepas"></div>
+    <div id="nbdepas"></div>
   </div>
-  
+
 
   <div id="bloc-central">
     <div id="journal"></div>
     <div id="rencontre">
-        <img />
-        <span></span>
+      <img />
+      <span></span>
     </div>
   </div>
-  
+
 
   <div id="personnages"></div>
 
@@ -42,6 +50,21 @@
   </div>
 
   <script src="script.js"></script>
+
+  <dialog id="rulesDialog">
+    <form method="dialog">
+      <button type="button" id="close" aria-label="fermer">X</button>
+      - Dans ce jeu vous incarnez un des trois personnages proposé<br>  
+      <br>  
+      - Vous devez atteindre 1000 pas pour trouver la fin du Jeu<br>  
+      <br>  
+      - Vous pouvez rencontrer des monstres, vous devez les trouver<br>  
+      <br>  
+      - Si vous mourrez, le jeu recommence<br>  
+      <br>  
+      - L'intelligence sert à fuir et la force à faire des degats<br>  
+    </form>
+  </dialog>
 
 </body>
 

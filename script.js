@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 });
 
 var jeu = {
-        
+
     parametres: {
         probasMonstre: 10,
         probaRiposte: 15,
@@ -54,16 +54,15 @@ var jeu = {
             'image': 'molly.png'
         },
         {
-            'nom': "EasterEgg",
-            'pvMax': 9999999,
-            'pvCourant': 9999999,
-            'force': 9999999,
-            'intelligence': 9999999,
+            'nom': "Knight",
+            'pvMax': 200,
+            'pvCourant': 200,
+            'force': 2,
+            'intelligence': 2,
             'image': 'Weakyy.png'
-            // Cachez le personnage sur le menu du debut (ex: si on appuis sur l'emoji de l'épée )
         }
     ],
-        objets: [
+    objets: [
         {
             'nom': "pillule de force bleu",
             'image': 'pill1.png'
@@ -80,10 +79,14 @@ var jeu = {
 
     personnage: null,
 
-    playAudio: function(son) {
+    playAudio: function (son) {
         let audio = new Audio(son)
         audio.play();
+
+        return audio
     },
+
+
 
     demarrer: function () {
         this.ecrire("ça démarre", "basic")
@@ -110,6 +113,17 @@ var jeu = {
         recommencer.addEventListener("click", (event) => {
             location.reload()
         });
+
+        const close = document.getElementById("close");
+        const rulesDialog = document.getElementById("rulesDialog");
+        let rules = document.querySelector("#rules")
+        rules.addEventListener("click", (event) => {
+            rulesDialog.showModal();
+        });
+        close.addEventListener("click", () => {
+            rulesDialog.close();
+        });
+
     },
 
     effacerjournal: function () {
@@ -137,10 +151,10 @@ var jeu = {
 
         if (this.monstre.pv < 1) {
             this.etat.combat = false
-           
+
             this.ecrire(`vous avez vaincu le ${this.monstre.name}`, 'vert')
             this.effacerMonstre()
-            if(this.monstre.name == "boss") {
+            if (this.monstre.name == "boss") {
                 this.etat.victoire = true
                 jeu.playAudio("sounds/win.mp3")
                 document.body.style.backgroundImage = "url(img/autres/NewBackground.png)"
@@ -162,7 +176,7 @@ var jeu = {
                     this.ecrire(`vous regagnez des pv`, "vert")
                 }
             }
-                
+
             this.gestionBoutons()
 
         } else {
@@ -183,7 +197,9 @@ var jeu = {
                 if (this.personnage.pvCourant < 1) {
                     this.etat.combat = false
                     this.ecrire(`vous êtes mort...`, 'mort')
+                    this.ecrire(`voulez vous recommencez ?`, 'mort')
                     this.gestionBoutons()
+                    jeu.mourir()
                 }
             }
         }
@@ -205,7 +221,7 @@ var jeu = {
         let blocPas = document.querySelector('#nbdepas')
         blocPas.innerHTML = `${this.etat.pas} pas`
         let percent = this.etat.pas / this.etat.objectif * 100
-        blocPas.style.width = percent+"%"
+        blocPas.style.width = percent + "%"
 
         if (this.etat.pas == this.etat.objectif) {
             this.personnage.pvMax += 100
@@ -213,9 +229,9 @@ var jeu = {
             this.etat.objectif += 100
             this.updatePv()
         }
-        
+
         // ON TOMBE SUR LE BOSS
-        if(this.etat.pas > this.parametres.boss){
+        if (this.etat.pas > this.parametres.boss) {
             this.etat.combat = true
             this.gestionBoutons(true)
             this.ecrire("Bravo, bous avez atteint le boss final, le fight commence maintenant")
@@ -242,16 +258,40 @@ var jeu = {
                 img.src = "img/autres/coffre.png"
                 let text = document.querySelector("#rencontre span")
                 text.innerHTML = ""
-            } 
+            }
         }
-        
+
     },
-    genereMonstre:function(isBoss){
+
+
+    mourir: function () {
+        let continuer = document.querySelector("#continuer")
+        continuer.classList.remove("shown")
+        let combattre = document.querySelector("#combattre")
+        combattre.classList.remove("shown")
+        let fuir = document.querySelector("#fuir")
+        fuir.classList.remove("shown")
+        let recommencer = document.querySelector("#recommencer")
+        recommencer.classList.add("shown")
+    },
+    fuirrr: function () {
+        let fuir = document.querySelector("#fuir")
+        fuir.classList.remove("shown")
+        this.ecrire("Vous n'avez plus d'intelligence, faites attention ")
+    },
+
+    rules: function () {
+        let journal = document.querySelector("#regle")
+        journal.innerHTML
+
+    },
+
+    genereMonstre: function (isBoss) {
         let pv
         let image
-        let force 
+        let force
         let name
-        if(isBoss == true){
+        if (isBoss == true) {
             image = "img/monstres/boss.png"
             pv = 25000
             force = 100
@@ -269,7 +309,7 @@ var jeu = {
             'image': image,
             'name': name
         }
-        
+
         this.monstre = monstre
         let img = document.querySelector("#rencontre img")
         let text = document.querySelector("#rencontre span")
@@ -300,7 +340,7 @@ var jeu = {
 
     gestionBoutons: function (isBoss = false) {
 
-        if(!this.etat.victoire) {
+        if (!this.etat.victoire) {
             if (!this.etat.combat) {
                 let continuer = document.querySelector("#continuer")
                 continuer.classList.add("shown")
@@ -313,12 +353,15 @@ var jeu = {
                 continuer.classList.remove("shown")
                 let combattre = document.querySelector("#combattre")
                 combattre.classList.add("shown")
-                if(isBoss) {
+                if (isBoss) {
                     let fuir = document.querySelector("#fuir")
                     fuir.classList.remove("shown")
                 } else {
                     let fuir = document.querySelector("#fuir")
                     fuir.classList.add("shown")
+                    if (this.personnage.intelligence <= 0) {
+                        this.fuirrr()
+                    }
                 }
             }
         } else {
@@ -359,6 +402,21 @@ var jeu = {
             let nomPerso = event.currentTarget.dataset.nom
             const perso = this.persos.find((perso) => perso.nom === nomPerso);
             this.personnage = perso
+            let audioBackground = jeu.playAudio("sounds/background.mp3")
+            let haut = document.querySelector("#haut")
+            haut.addEventListener("click", (event) => {
+                console.log("haut")
+                if (audioBackground.volume < 1) {
+                    audioBackground.volume = audioBackground.volume + 0.2;
+                }
+            });
+            let bas = document.querySelector("#bas")
+            bas.addEventListener("click", (event) => {
+                console.log("bas")
+                if (audioBackground.volume >= 0.2) {
+                    audioBackground.volume = audioBackground.volume - 0.2;
+                }
+            });
             jeu.effacerjournal()
             jeu.cacherPersonnage()
             jeu.ecrire(`Bienvenue ${perso.nom} !`, "pasimportant")

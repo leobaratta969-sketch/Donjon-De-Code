@@ -3,28 +3,77 @@ body {
         font-size: 5rem;
         text-align: center;
     }
-    background-image: url(img/fonds/background4.png), url(img/fonds/background3.png), url(img/fonds/background2.png),url(img/fonds/background1.png);
+    & #rules {
+        position: fixed;
+        left: 50px;
+        top: 60px;
+        color: black;
+        padding: 1rem;
+        font-family: monospace;
+        font-size: 20px;
+        border: 1px solid black;
+        border-radius: 30px;
+        &:hover {
+                background-color: #ddddddaa;
+                color: black;
+                cursor: pointer;
+        }
+    }
+
+    & #volume {
+        position: fixed;
+        right: 50px;
+        top: 50px;
+        color: black;
+        padding: 1rem;
+        font-family: monospace;
+        font-size: 35px;
+
+        & span {
+            border: 1px solid black;
+            border-radius: 15px;
+
+            &:hover {
+                background-color: #ddddddaa;
+                color: black;
+                cursor: pointer;
+            
+            }
+            &.shown {
+                display: flex;
+            }
+        }
+    }
+
+    background-image: url(img/fonds/background4.png),
+    url(img/fonds/background3.png),
+    url(img/fonds/background2.png),
+    url(img/fonds/background1.png);
     background-repeat: no-repeat;
     background-size: cover;
 
     color: black;
+
     #bloc-central {
-        display:flex;
+        display: flex;
         justify-content: space-between;
+
         & #rencontre {
             & span {
                 font-size: 25px;
                 padding: 5px;
             }
-            
+
             flex: 1 1 0;
             width: 0;
             max-height: 500px;
+
             & img {
                 max-height: 100%;
                 width: 80%;
             }
         }
+    }
         & #journal {
             flex: 1 1 0;
             width: 0;
@@ -47,11 +96,11 @@ body {
                 }
 
                 &.rouge {
-                    color:red;
+                    color: red;
                 }
 
                 &.vert {
-                    color:green;
+                    color: green;
                 }
 
                 &.mort {
@@ -63,24 +112,49 @@ body {
             }
         }
     }
+    & #regle {
+            flex: 1 1 0;
+            width: 0;
+            background-color: #ddddddaa;
+            color: grey;
+            border: 2px solid black;
+            padding: 1rem;
+            font-family: monospace;
+            font-size: 25px;
+            max-height: 500px;
+            border-radius: 30px;
+    }
+    & #rulesDialog {
+        flex: 1 1 0;
+        background-color: #dddddd;
+        color: grey;
+        border: 2px solid black;
+        padding: 1rem;
+        font-family: monospace;
+        font-size: 30px;
+        border-radius: 30px;
 
+    }
     & #personnages {
         display: flex;
         font-size: 25px;
         margin-top: 0.5rem;
+
         & img {
             max-height: 90px;
         }
+
         &.hidden {
             display: none;
         }
 
 
         & div {
-            text-align:center;
+            text-align: center;
             flex: 1 1 0;
             width: 0;
-            border: 1px solid grey;
+            border: 1px solid black;
+            border-radius: 30px;
             padding: 1rem;
 
             & img {
@@ -93,6 +167,11 @@ body {
                 color: black;
                 cursor: pointer;
             }
+            
+            &.shown {
+                display: flex;
+            }
+            
         }
     }
 
@@ -101,12 +180,13 @@ body {
         margin-bottom: 0.5rem;
         font-size: 25px;
         border: 2px solid black;
+
         & #nbdepas {
             background-color: #78cb9bdd;
             min-height: 20px;
         }
     }
-    
+
 
     & #actions {
         display: none;
