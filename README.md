@@ -13,6 +13,7 @@ Itch.io
 Punch = youtube.com/watch?v=fSk5oYFsQ3Q  
 Degats infligé sur notre personnage = youtube.com/watch?v=JcG_ugrzfHE  
 Victoire du boss = youtube.com/watch?v=rr5CMS2GtCY  
+Music = TheoAllen
 
 ## <ins>License</ins>
 MIT, voir fichier `LICENSE`
