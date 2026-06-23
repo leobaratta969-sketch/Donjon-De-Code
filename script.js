@@ -8,7 +8,7 @@ var jeu = {
         probasMonstre: 10,
         probaRiposte: 15,
         incrementPas: 10,
-        bosss: 50
+        bosss: 350
     },
     etat: {
         pas: 0,
@@ -65,15 +65,11 @@ var jeu = {
     ],
     objets: [
         {
-            'nom': "pillule de force bleu",
-            'image': 'pill1.png'
+            'nom': "une pillule de force",
+            'image': 'pills2.png'
         },
         {
-            'nom': "pillule de force",
-            'image': 'pill2.png'
-        },
-        {
-            'nom': "bandage de force",
+            'nom': "un bandage de force",
             'image': 'bandage.png'
         }
     ],
@@ -87,12 +83,25 @@ var jeu = {
         return audio
     },
 
-
-
     demarrer: function () {
         this.ecrire("ça démarre", "basic")
         this.ecrire("choisis ton personnage...", "basic")
         this.choixPerso()
+
+        let easteregg = document.querySelector("#progression")
+        let persoEasteregg = {
+            'nom': "EasterEgg",
+            'pvMax': 9999999,
+            'pvCourant': 9999999,
+            'force': 9999999,
+            'intelligence': 9999999,
+            'image': 'easter-egg.png'
+             }
+        easteregg.addEventListener("click", (event) => {
+            jeu.persos.push(persoEasteregg)
+
+            jeu.affichePerso(persoEasteregg)
+         });  
 
         let continuer = document.querySelector("#continuer")
         continuer.addEventListener("click", (event) => {
@@ -133,7 +142,8 @@ var jeu = {
 
     effacerMonstre: function () {
         let img = document.querySelector("#rencontre img")
-        img.src = ""
+        // img.src = ""
+        img.classList.add("mort")
         let text = document.querySelector("#rencontre span")
         text.innerHTML = ""
     },
@@ -188,6 +198,9 @@ var jeu = {
 
                 this.ecrire(`le monstre vous tape à ${degat}`, "rouge")
                 this.personnage.pvCourant -= degat
+                if( this.personnage.pvCourant < 0) {
+                    this.personnage.pvCourant = 0
+                }
                 console.log(degat)
                 console.log(this.personnage.pvCourant)
                 jeu.playAudio("sounds/hit.mp3")
@@ -220,8 +233,16 @@ var jeu = {
         this.etat.pas += this.parametres.incrementPas
         let blocPas = document.querySelector('#nbdepas')
         blocPas.innerHTML = `${this.etat.pas} pas`
-        let percent = this.etat.pas / this.etat.objectif * 100
-        blocPas.style.width = percent + "%"
+        // let percent = this.etat.pas / this.etat.objectif * 100
+        let lastDigit = parseInt(this.etat.pas.toString().slice(-2));
+        if(lastDigit == "00") {
+            lastDigit = "99"
+        }
+        blocPas.style.width = lastDigit + "%"
+        let img = document.querySelector("#rencontre img")
+
+        img.classList.remove("mort")
+
 
         if (this.etat.pas == this.etat.objectif) {
             this.personnage.pvMax += 100
@@ -239,7 +260,6 @@ var jeu = {
             audioBoss.loop = true
             this.ecrire("Bravo, bous avez atteint le boss final, le fight commence maintenant")
             this.genereMonstre(true)
-
         } else {
             let result = this.getRandomInt(0, 100)
             // ON TOMBE SUR UN MONSTRE
@@ -251,21 +271,21 @@ var jeu = {
 
             } else {
                 // ON TOMBE SUR UN COFFRE
-                this.ecrire("Vous tombez sur un coffre !", "vert")
+
+                let randomObjet = this.objets[Math.floor(Math.random() * this.objets.length)]
+                this.ecrire(`Vous tombez sur un coffre contenant ${randomObjet.nom} !`, "vert")
                 let gainForce = this.getRandomInt(0, 5)
                 this.personnage.force += gainForce
                 this.ecrire(`Vous gagnez ${gainForce} de force`, "vert")
                 let force = document.querySelector("#stat-force")
                 force.innerHTML = this.personnage.force
-                let img = document.querySelector("#rencontre img")
-                img.src = "img/autres/coffre.png"
+                img.src = "img/objets/" + randomObjet.image
                 let text = document.querySelector("#rencontre span")
                 text.innerHTML = ""
             }
         }
 
     },
-
 
     mourir: function () {
         let continuer = document.querySelector("#continuer")
@@ -279,7 +299,7 @@ var jeu = {
         let img = document.querySelector("#rencontre img")
         img.src = "img/mort/mourirr.png"
     },
-    fuirrr: function () {
+    fuirr: function () {
         let fuir = document.querySelector("#fuir")
         fuir.classList.remove("shown")
         this.ecrire("Vous n'avez plus d'intelligence, faites attention ")
@@ -365,7 +385,7 @@ var jeu = {
                     let fuir = document.querySelector("#fuir")
                     fuir.classList.add("shown")
                     if (this.personnage.intelligence <= 0) {
-                        this.fuirrr()
+                        this.fuirr()
                     }
                 }
             }
