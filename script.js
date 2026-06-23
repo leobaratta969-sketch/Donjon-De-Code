@@ -234,7 +234,7 @@ var jeu = {
         if (this.etat.pas > this.parametres.bosss) {
             this.etat.combat = true
             this.gestionBoutons(true)
-            this.audioBackground.loop = false
+            this.audioBackground.pause()
             let audioBoss = jeu.playAudio("sounds/Boss.ogg")
             audioBoss.loop = true
             this.ecrire("Bravo, bous avez atteint le boss final, le fight commence maintenant")
