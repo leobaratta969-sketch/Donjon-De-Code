@@ -3,12 +3,12 @@ document.addEventListener("DOMContentLoaded", (event) => {
 });
 
 var jeu = {
-
+    audioBackground: null,
     parametres: {
         probasMonstre: 10,
         probaRiposte: 15,
         incrementPas: 10,
-        boss: 999
+        bosss: 50
     },
     etat: {
         pas: 0,
@@ -27,7 +27,7 @@ var jeu = {
         "img/monstres/monstre9.png",
         "img/monstres/monstre10.png"
     ],
-    mortt: "img/mort/mourir.png",
+    mortt: "img/mort/mourirr.png",
     monstre: null,
     persos: [
         {
@@ -124,7 +124,6 @@ var jeu = {
         close.addEventListener("click", () => {
             rulesDialog.close();
         });
-
     },
 
     effacerjournal: function () {
@@ -232,13 +231,12 @@ var jeu = {
         }
 
         // ON TOMBE SUR LE BOSS
-        if (this.etat.pas > this.parametres.boss) {
+        if (this.etat.pas > this.parametres.bosss) {
             this.etat.combat = true
             this.gestionBoutons(true)
-            audioBackground.loop = false
-
-
-
+            this.audioBackground.loop = false
+            let audioBoss = jeu.playAudio("sounds/Boss.ogg")
+            audioBoss.loop = true
             this.ecrire("Bravo, bous avez atteint le boss final, le fight commence maintenant")
             this.genereMonstre(true)
 
@@ -279,7 +277,7 @@ var jeu = {
         let recommencer = document.querySelector("#recommencer")
         recommencer.classList.add("shown")
         let img = document.querySelector("#rencontre img")
-        img.src = "img/mort/mourir.png"
+        img.src = "img/mort/mourirr.png"
     },
     fuirrr: function () {
         let fuir = document.querySelector("#fuir")
@@ -409,20 +407,20 @@ var jeu = {
             let nomPerso = event.currentTarget.dataset.nom
             const perso = this.persos.find((perso) => perso.nom === nomPerso);
             this.personnage = perso
-            let audioBackground = jeu.playAudio("sounds/background.mp3")
-            audioBackground.loop = true
+            this.audioBackground = jeu.playAudio("sounds/background.mp3")
+            this.audioBackground.loop = true
             let haut = document.querySelector("#haut")
             haut.addEventListener("click", (event) => {
                 console.log("haut")
-                if (audioBackground.volume < 1) {
-                    audioBackground.volume = audioBackground.volume + 0.2;
+                if (this.audioBackground.volume < 1) {
+                    this.audioBackground.volume = this.audioBackground.volume + 0.2;
                 }
             });
             let bas = document.querySelector("#bas")
             bas.addEventListener("click", (event) => {
                 console.log("bas")
-                if (audioBackground.volume >= 0.2) {
-                    audioBackground.volume = audioBackground.volume - 0.2;
+                if (this.audioBackground.volume >= 0.2) {
+                    this.audioBackground.volume = this.audioBackground.volume - 0.2;
                 }
             });
             jeu.effacerjournal()
