@@ -8,7 +8,7 @@ var jeu = {
         probasMonstre: 10,
         probaRiposte: 15,
         incrementPas: 10,
-        bosss: 350
+        bosss: 999
     },
     etat: {
         pas: 0,
