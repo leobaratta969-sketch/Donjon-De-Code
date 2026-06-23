@@ -27,6 +27,7 @@ var jeu = {
         "img/monstres/monstre9.png",
         "img/monstres/monstre10.png"
     ],
+    mortt: "img/mort/mourir.png",
     monstre: null,
     persos: [
         {
@@ -234,6 +235,10 @@ var jeu = {
         if (this.etat.pas > this.parametres.boss) {
             this.etat.combat = true
             this.gestionBoutons(true)
+            audioBackground.loop = false
+
+
+
             this.ecrire("Bravo, bous avez atteint le boss final, le fight commence maintenant")
             this.genereMonstre(true)
 
@@ -273,6 +278,8 @@ var jeu = {
         fuir.classList.remove("shown")
         let recommencer = document.querySelector("#recommencer")
         recommencer.classList.add("shown")
+        let img = document.querySelector("#rencontre img")
+        img.src = "img/mort/mourir.png"
     },
     fuirrr: function () {
         let fuir = document.querySelector("#fuir")
@@ -403,6 +410,7 @@ var jeu = {
             const perso = this.persos.find((perso) => perso.nom === nomPerso);
             this.personnage = perso
             let audioBackground = jeu.playAudio("sounds/background.mp3")
+            audioBackground.loop = true
             let haut = document.querySelector("#haut")
             haut.addEventListener("click", (event) => {
                 console.log("haut")
