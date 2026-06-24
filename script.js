@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 var jeu = {
     audioBackground: null,
+    audioBoss: null,
     parametres: {
         probasMonstre: 10,
         probaRiposte: 15,
@@ -128,9 +129,11 @@ var jeu = {
         const rulesDialog = document.getElementById("rulesDialog");
         let rules = document.querySelector("#rules")
         rules.addEventListener("click", (event) => {
+            jeu.playAudio("sounds/clicksound.mp3")
             rulesDialog.showModal();
         });
         close.addEventListener("click", () => {
+            jeu.playAudio("sounds/clicksound.mp3")
             rulesDialog.close();
         });
     },
@@ -140,10 +143,15 @@ var jeu = {
         journal.innerHTML = ""
     },
 
-    effacerMonstre: function () {
+    effacerMonstre: function (mort = true) {
         let img = document.querySelector("#rencontre img")
         // img.src = ""
-        img.classList.add("mort")
+        if(mort) {
+            img.classList.add("mort")
+        } else {
+            img.classList.add("fuit")
+        }
+        
         let text = document.querySelector("#rencontre span")
         text.innerHTML = ""
     },
@@ -167,8 +175,17 @@ var jeu = {
             if (this.monstre.name == "boss") {
                 this.etat.victoire = true
                 jeu.playAudio("sounds/win.mp3")
+                this.audioBoss.pause()
+                this.audioBackground.play()
                 document.body.style.backgroundImage = "url(img/autres/NewBackground.png)"
                 document.querySelector("h1").style.color = "white"
+                this.effacerjournal()
+                this.ecrire("⊱∽-∾----∾∾-----∾-∽⊰")
+                this.ecrire(`Votre force finale est de ${this.personnage.force}`)
+                this.ecrire(`Votre intelligence finale est de ${this.personnage.intelligence}`)
+                this.ecrire(`.`, "invisible")
+                this.ecrire(`Vous avez tué les monstres, le roi vous offre sa bénédiction`)
+                this.ecrire("⊱∽-∾----∾∾-----∾-∽⊰")
                 let paragraphes = document.querySelectorAll("#journal p")
                 paragraphes.forEach(paragraphe => {
                     paragraphe.style.color = "black"
@@ -224,7 +241,7 @@ var jeu = {
         this.etat.combat = false
         this.gestionBoutons()
         this.ecrire('Vous fuyez lachement le combat')
-        this.effacerMonstre()
+        this.effacerMonstre(false)
     },
 
     avancer: function () {
@@ -242,6 +259,7 @@ var jeu = {
         let img = document.querySelector("#rencontre img")
 
         img.classList.remove("mort")
+        img.classList.remove("fuit")
 
 
         if (this.etat.pas == this.etat.objectif) {
@@ -256,9 +274,10 @@ var jeu = {
             this.etat.combat = true
             this.gestionBoutons(true)
             this.audioBackground.pause()
-            let audioBoss = jeu.playAudio("sounds/Boss.ogg")
-            audioBoss.loop = true
+            this.audioBoss = jeu.playAudio("sounds/Boss.ogg")
+            this.audioBoss.loop = true
             this.ecrire("Bravo, bous avez atteint le boss final, le fight commence maintenant")
+            this.ecrire("⊱∽-∾----∾∾-----∾-∽⊰")
             this.genereMonstre(true)
         } else {
             let result = this.getRandomInt(0, 100)
@@ -325,7 +344,7 @@ var jeu = {
             name = "monstre standard"
             image = this.monstres[Math.floor(Math.random() * this.monstres.length)]
             pv = this.etat.pas * this.getRandomInt(5, 10)
-            force = pv / 10
+            force = Math.trunc(pv / 15)
         }
 
         let monstre = {
@@ -424,6 +443,7 @@ var jeu = {
         blocPersos.appendChild(bloc)
 
         bloc.addEventListener("click", (event) => {
+            jeu.playAudio("sounds/clicksound.mp3")
             let nomPerso = event.currentTarget.dataset.nom
             const perso = this.persos.find((perso) => perso.nom === nomPerso);
             this.personnage = perso
