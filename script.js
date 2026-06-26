@@ -317,7 +317,7 @@ var jeu = {
         recommencer.classList.add("shown")
         let img = document.querySelector("#rencontre img")
         img.src = "img/mort/mourirr.png"
-        background.classList.add("mortt")
+        backgroundImage.classList.add("mortt")
     },
     fuirr: function () {
         let fuir = document.querySelector("#fuir")
