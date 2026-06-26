@@ -2,6 +2,9 @@
 
 petit jeu en html / js pour apprendre le code
 
+## Lien du jeu:
+https://leobaratta969-sketch.github.io/Donjon-De-Code/
+
 ## <ins>Capture</ins>
 ![Image de notres jeu](img/InGamePictures/Game.png)
 ![Image de notres jeu](img/InGamePictures/Game2.png)
