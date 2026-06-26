@@ -131,6 +131,10 @@ body {
             }
         }
     }
+    & #mortt {
+    filter: grayscale(80%);
+    transition: filter 0.3s  linear;
+    }
     & #regle {
             flex: 1 1 0;
             width: 0;
