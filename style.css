@@ -1,4 +1,10 @@
 body {
+    &.mort {
+        background-image: url(img/fonds/background4-mort.png),
+        url(img/fonds/background3-mort.png),
+        url(img/fonds/background2-mort.png),
+        url(img/fonds/background1-mort.png);
+    }
     & h1 {
         font-size: 5rem;
         text-align: center;
@@ -53,6 +59,8 @@ body {
     url(img/fonds/background1.png);
     background-repeat: no-repeat;
     background-size: cover;
+
+
 
     color: black;
 
@@ -130,10 +138,6 @@ body {
 
             }
         }
-    }
-    & #mortt {
-    filter: grayscale(80%);
-    transition: filter 0.3s  linear;
     }
     & #regle {
             flex: 1 1 0;

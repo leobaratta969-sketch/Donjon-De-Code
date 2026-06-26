@@ -318,7 +318,8 @@ var jeu = {
         let img = document.querySelector("#rencontre img")
         img.src = "img/mort/mourirr.png"
         jeu.playAudio("sounds/death.mp3")
-        backgroundImage.classList.add("mortt")
+
+        document.body.classList.add("mort")
     },
     fuirr: function () {
         let fuir = document.querySelector("#fuir")
