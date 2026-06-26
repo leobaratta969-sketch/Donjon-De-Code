@@ -317,6 +317,7 @@ var jeu = {
         recommencer.classList.add("shown")
         let img = document.querySelector("#rencontre img")
         img.src = "img/mort/mourirr.png"
+        jeu.playAudio("sounds/death.mp3")
         backgroundImage.classList.add("mortt")
     },
     fuirr: function () {
